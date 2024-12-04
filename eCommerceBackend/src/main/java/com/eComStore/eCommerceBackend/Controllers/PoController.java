@@ -3,6 +3,7 @@ package com.eComStore.eCommerceBackend.Controllers;
 import com.eComStore.eCommerceBackend.DTOs.IdRequest;
 import com.eComStore.eCommerceBackend.DTOs.OrderRequest;
 import com.eComStore.eCommerceBackend.Models.Po;
+import com.eComStore.eCommerceBackend.Services.ItemService;
 import com.eComStore.eCommerceBackend.Services.PoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,10 +20,14 @@ public class PoController {
     @Autowired
     private PoService poService;
 
+    @Autowired
+    private ItemService itemService;
+
     @PostMapping("")
     public ResponseEntity<Po> order(@RequestBody OrderRequest orderRequest){
         try{
             Po placedOrder = poService.order(orderRequest);
+            itemService.subtractAmount(orderRequest.getAmount(), orderRequest.getItemID());
             return new ResponseEntity<>(placedOrder, HttpStatus.OK);
         } catch (Exception e){
             System.out.println(e);

@@ -4,9 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @Entity(name="po")
 @Table(name="po")
-@Getter
 @NoArgsConstructor
 public class Po {
     @Id
@@ -14,28 +14,13 @@ public class Po {
     private int id;
     private int customerID;
     private String dateOfPurchase;
-    private String itemID;
+    private int itemID;
 
-    public Po(int customerID, String dateOfPurchase, String itemID) {
+    public Po(int customerID, String dateOfPurchase, int itemID) {
         this.id = 0;
         this.customerID = customerID;
         this.dateOfPurchase = dateOfPurchase;
         this.itemID = itemID;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public int getCustomerID() {
-        return customerID;
-    }
-
-    public String getDateOfPurchase() {
-        return dateOfPurchase;
-    }
-
-    public String getItemID() {
-        return itemID;
-    }
 }

@@ -23,6 +23,15 @@ public class ItemDAOImpl implements ItemDAO {
 
 
     @Override
+    public List<Item> getAllItems(){
+        try{
+            return entityManager.createQuery("SELECT i FROM item i", Item.class).getResultList();
+        } catch (Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
+    @Override
     public Item saveItem(Item item) {
         try{
             if (item.getItemID() == 0) {
@@ -46,6 +55,36 @@ public class ItemDAOImpl implements ItemDAO {
             entityManager.remove(item);
         }
     }
+
+    @Override
+    public void subtractAmount(int quantity, int itemID) {
+        try {
+            Item item = entityManager.find(Item.class, itemID);
+
+            if (item == null) {
+                System.out.println("Item not found with ID: " + itemID);
+                return;
+            }
+
+            // Check if the current stock is sufficient
+            int currentStock = item.getQuantity();
+            if (currentStock < quantity) {
+                System.out.println("Insufficient stock for item ID: " + itemID);
+                return;
+            }
+
+            item.setQuantity(currentStock - quantity);
+
+            // Update the item in the database
+            entityManager.merge(item);
+            entityManager.flush();
+
+            System.out.println("Stock updated successfully for item ID: " + itemID);
+        } catch (Exception e) {
+            System.out.println("Error occurred while updating stock: " + e.getMessage());
+        }
+    }
+
 
 
 }

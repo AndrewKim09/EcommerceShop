@@ -3,10 +3,12 @@ package com.eComStore.eCommerceBackend.Models;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity(name="item")
 @Table(name="item")
 @Getter
+@Setter
 @NoArgsConstructor
 public class Item {
     @Id

@@ -30,10 +30,10 @@ public class AddressController {
     }
 
     @GetMapping("")
-    public ResponseEntity<Address> getAddress(@RequestBody IdRequest idRequest){
+    public ResponseEntity<Address> getAddress(@RequestParam int id){
         try {
-            System.out.println(idRequest.getId());
-            Optional<Address> foundAddress = addressService.getAddress(idRequest.getId());
+            System.out.println(id);
+            Optional<Address> foundAddress = addressService.getAddress(id);
             if(foundAddress.isEmpty()) return new ResponseEntity(HttpStatus.NOT_FOUND);
             else {
                 return new ResponseEntity(foundAddress.get(), HttpStatus.OK);

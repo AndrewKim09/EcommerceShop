@@ -17,7 +17,7 @@ import java.util.Optional;
 public class CustomerService {
     @Autowired
     private CustomerDAOImpl customerDAO;
-    public Customer save(RegisterRequest request , int addressId){
+    public Customer register(RegisterRequest request , int addressId){
         Customer newCustomer = new Customer(
                 addressId,
                 request.getUsername(),
@@ -28,6 +28,11 @@ public class CustomerService {
 
         return customerDAO.save(newCustomer);
     }
+
+    public Customer save(Customer customer){
+        return customerDAO.save(customer);
+    }
+
 
     public Optional<Customer> getCustomerByUsername(String username){
         return customerDAO.findByUsername(username);

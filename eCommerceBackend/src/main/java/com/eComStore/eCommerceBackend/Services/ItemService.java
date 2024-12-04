@@ -6,6 +6,8 @@ import com.eComStore.eCommerceBackend.Models.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ItemService {
 
@@ -18,8 +20,16 @@ public class ItemService {
         return itemDAO.saveItem(createItem);
     }
 
+    public List<Item> getAll() {
+        return itemDAO.getAllItems();
+    }
+
     public Item save(Item item){
         return itemDAO.saveItem(item);
+    }
+
+    public void subtractAmount(int quantity, int itemID){
+        itemDAO.subtractAmount(quantity, itemID);
     }
 
 

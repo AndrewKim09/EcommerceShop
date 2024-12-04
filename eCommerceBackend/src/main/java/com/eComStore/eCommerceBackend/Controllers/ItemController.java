@@ -8,12 +8,26 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/item")
 public class ItemController {
     @Autowired
     private ItemService itemService;
+
+    @GetMapping
+    public ResponseEntity<List<Item>> getAllItems(){
+        try {
+            List<Item> allItems = itemService.getAll();
+            return new ResponseEntity<>(allItems,HttpStatus.OK);
+        } catch (Exception e){
+            System.out.println(e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
     @PostMapping("/add")
     public ResponseEntity<Item> addItem(@RequestBody NewItem newItem){
