@@ -35,10 +35,10 @@ public class PoController {
         }
     }
 
-    @GetMapping("/user")
-    public ResponseEntity<List<Po>> getUsernameOrders(@RequestBody IdRequest idRequest){
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<Po>> getUsernameOrders(@PathVariable("id") int id){
         try{
-            List<Po> usernameOrders = poService.getUserOrders(idRequest.getId());
+            List<Po> usernameOrders = poService.getUserOrders(id);
             return new ResponseEntity<>(usernameOrders,HttpStatus.OK);
         } catch (Exception e){
             System.out.println(e);

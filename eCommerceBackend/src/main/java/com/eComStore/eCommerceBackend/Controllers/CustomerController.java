@@ -4,6 +4,7 @@ import com.eComStore.eCommerceBackend.DTOs.RegisterRequest;
 import com.eComStore.eCommerceBackend.DTOs.UserLogin;
 import com.eComStore.eCommerceBackend.Models.Address;
 import com.eComStore.eCommerceBackend.Models.Customer;
+import com.eComStore.eCommerceBackend.Models.Item;
 import com.eComStore.eCommerceBackend.Models.billingInfo;
 import com.eComStore.eCommerceBackend.Services.AddressService;
 import com.eComStore.eCommerceBackend.Services.CustomerService;
@@ -40,6 +41,19 @@ public class CustomerController {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Customer> getCustomerById(@PathVariable("id") int id){
+        try{
+            Optional<Customer> customer = customerService.getCustomerById(id);
+            if(customer.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(customer.get(), HttpStatus.OK);
+        } catch (Exception e){
+            System.out.println(e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 
     @PostMapping("")

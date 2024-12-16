@@ -23,7 +23,7 @@ public class PoDAOImpl implements PoDAO{
     @Override
     public List<Po> getUsernameOrders(int customerId) {
         TypedQuery<Po> query = entityManager.createQuery(
-                "SELECT p FROM Po p WHERE p.customerId = :customerId", Po.class);
+                "SELECT p FROM po p WHERE p.customerID = :customerId", Po.class);
         query.setParameter("customerId", customerId);
 
         List<Po> resultList = query.getResultList();

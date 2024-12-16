@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.swing.text.html.parser.Entity;
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Repository
@@ -20,6 +21,16 @@ public class ItemDAOImpl implements ItemDAO {
     public List<Item> getItems() {
         return entityManager.createQuery("from item", Item.class).getResultList();
     }
+
+    @Override
+    public Optional<Item> getItem(int id) {
+        return entityManager.createQuery("SELECT i FROM item i WHERE i.id = :itemID", Item.class)
+                .setParameter("itemID", id)
+                .getResultStream()
+                .findFirst();
+    }
+
+
 
 
     @Override

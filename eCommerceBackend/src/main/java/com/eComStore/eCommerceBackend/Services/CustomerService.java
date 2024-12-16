@@ -3,6 +3,7 @@ package com.eComStore.eCommerceBackend.Services;
 import com.eComStore.eCommerceBackend.DAOs.CustomerDAOImpl;
 import com.eComStore.eCommerceBackend.DTOs.RegisterRequest;
 import com.eComStore.eCommerceBackend.Models.Customer;
+import com.eComStore.eCommerceBackend.Models.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,4 +39,8 @@ public class CustomerService {
         return customerDAO.findByUsername(username);
     }
     public List<Customer> getAll(){return customerDAO.getAll();}
+
+    public Optional<Customer> getCustomerById(int id) {
+        return customerDAO.findById(id);
+    }
 }

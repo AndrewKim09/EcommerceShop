@@ -36,7 +36,7 @@ public class billingInfoDAOImpl implements billingInfoDAO {
     @Override
     public Optional<billingInfo> get(int id) {
         TypedQuery<billingInfo> query = entityManager.createQuery(
-                "SELECT a FROM billinginfo a WHERE a.id = :id", billingInfo.class);
+                "SELECT a FROM billinginfo a WHERE a.customerID = :id", billingInfo.class);
         query.setParameter("id", id);
 
         List<billingInfo> resultList = query.getResultList();
