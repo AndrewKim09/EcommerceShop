@@ -1,14 +1,13 @@
 package com.eComStore.eCommerceBackend.DAOs;
 
-import com.eComStore.eCommerceBackend.Models.Customer;
 import com.eComStore.eCommerceBackend.Models.Item;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.swing.text.html.parser.Entity;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +30,20 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
 
+    @Override
+    public void addItemImage(MultipartFile image, int id) throws IOException {
+        Item item = entityManager.createQuery("SELECT i FROM item i WHERE i.id = :itemID", Item.class)
+                .setParameter("itemID", id)
+                .getResultStream()
+                .findFirst()
+                .get();
+        item.setImage(image.getBytes());
 
+        entityManager.merge(item);
+        entityManager.flush();
+
+
+    }
 
     @Override
     public List<Item> getAllItems(){

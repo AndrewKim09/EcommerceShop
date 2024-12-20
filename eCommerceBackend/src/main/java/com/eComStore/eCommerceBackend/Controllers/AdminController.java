@@ -4,13 +4,16 @@ import com.eComStore.eCommerceBackend.DTOs.UserLogin;
 import com.eComStore.eCommerceBackend.Models.Address;
 import com.eComStore.eCommerceBackend.Models.Admin;
 import com.eComStore.eCommerceBackend.Models.Customer;
+import com.eComStore.eCommerceBackend.Models.Item;
 import com.eComStore.eCommerceBackend.Services.AddressService;
 import com.eComStore.eCommerceBackend.Services.AdminService;
 import com.eComStore.eCommerceBackend.Services.CustomerService;
+import com.eComStore.eCommerceBackend.Services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
@@ -23,6 +26,9 @@ public class AdminController {
 
     @Autowired
     private AddressService addressService;
+
+    @Autowired
+    private ItemService itemService;
 
     @PostMapping("")
     public ResponseEntity<Admin> adminLogin(@RequestBody UserLogin userLogin){
@@ -39,6 +45,18 @@ public class AdminController {
             }
         }
     }
+
+    @PostMapping(value="/addImage/{id}", consumes = "multipart/form-data")
+    public ResponseEntity addImage(@RequestParam("image") MultipartFile image, @PathVariable("id") int id){
+        try{
+            itemService.addImage(image, id);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e){
+            System.out.println(e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 //    @PostMapping("/login")
 //    public ResponseEntity<Customer> save(@RequestParam String username, @RequestParam String password){

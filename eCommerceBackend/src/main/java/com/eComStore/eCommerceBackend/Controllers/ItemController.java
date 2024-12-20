@@ -48,7 +48,7 @@ public class ItemController {
 
 
     @PostMapping(value = "/add", consumes = "multipart/form-data")
-    public ResponseEntity<Item> addItem(@ModelAttribute NewItem newItem , @RequestParam("image")MultipartFile image) {
+    public ResponseEntity<Item> addItem(@ModelAttribute NewItem newItem , @RequestParam("image")    MultipartFile image) {
         try {
             System.out.println(image);
 

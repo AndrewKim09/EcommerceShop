@@ -24,6 +24,11 @@ public class ItemService {
         return itemDAO.saveItem(createdItem);
     }
 
+    public void addImage(MultipartFile image, int id) throws IOException {
+        itemDAO.addItemImage(image, id);
+    }
+
+
     public List<Item> getAll() {
         return itemDAO.getAllItems();
     }
